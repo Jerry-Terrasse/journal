@@ -2,7 +2,25 @@
 
 ## 2022
 
-### 1.3
+### 3.3
+
+#### 使用脚本向手机发送通知
+
+本来`IFTTT`应该会很好用，但是墙太高了经常收不到消息。
+
+#### Python 语音识别
+
+`SpeechRecognition`这个库蛮方便，其中`Google`的api不需要注册申请，效果也好。
+
+#### 录制系统内声音
+
+需要借助名为”立体声混响“的虚拟声卡，系统的输出声音会在这个声卡上`loopback`成输入。
+
+如果原本没有，`Windows`上可以在设置中开启，`Linux`上可以用`pacmd load-module module-loopback`开启。
+
+[ref](https://stackoverflow.com/a/56612274)
+
+### 3.1
 
 这么久都没更新，漏掉了好多经验。。。
 
