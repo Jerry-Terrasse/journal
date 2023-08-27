@@ -9,7 +9,7 @@ else
     git commit -m "update (`date`)"
     
     # Request to push
-    echo "Push? [Y/n]"
+    echo -n "Push? [Y/n]"
     read ans
     case $ans in
       [yY] | "" )
