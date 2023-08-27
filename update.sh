@@ -2,7 +2,7 @@
 export GIT_WORK_TREE=~/journal
 export GIT_DIR=$GIT_WORK_TREE/.git
 
-if git diff --quiet; then
+if git diff --exit-code; then
     echo "Already up-to-date"
 else
     git add $GIT_WORK_TREE -v
