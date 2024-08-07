@@ -1,0 +1,18 @@
+name: MkDocs Build and Deploy
+
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    steps:
+      - name: Deploy MkDocs
+        uses: Reloaded-Project/devops-mkdocs@v1
+        with:
+          requirements: ./docs/requirements.txt
+          publish-to-pages: ${{ github.event_name == 'push' }}
+          checkout-current-repo: true
