@@ -1,0 +1,10 @@
+site_name: Journal of Terrasse
+theme:
+  name: material
+  palette:
+    primary: white
+
+nav:
+  - 2024: 2024.md
+  - 2023: 2023.md
+  - 2022: 2022.md
