@@ -1,4 +1,5 @@
 site_name: Journal of Terrasse
+repo_url: https://github.com/Jerry-Terrasse/journal
 theme:
   name: material
   palette:
