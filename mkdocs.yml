@@ -1,9 +1,21 @@
 site_name: Journal of Terrasse
 repo_url: https://github.com/Jerry-Terrasse/journal
+
 theme:
   name: material
   palette:
     primary: white
+
+# KaTex
+markdown_extensions:
+  - pymdownx.arithmatex:
+      generic: true
+extra_javascript:
+  - javascripts/katex.js
+  - https://unpkg.com/katex@0/dist/katex.min.js
+  - https://unpkg.com/katex@0/dist/contrib/auto-render.min.js
+extra_css:
+  - https://unpkg.com/katex@0/dist/katex.min.css
 
 nav:
   - 2024: 2024.md
