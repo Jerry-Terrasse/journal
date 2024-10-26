@@ -2,7 +2,7 @@
 export GIT_WORK_TREE=~/journal
 export GIT_DIR=$GIT_WORK_TREE/.git
 
-if git diff --exit-code; then
+if git --paginate diff --exit-code; then
     echo "Already up-to-date"
 else
     # Request to push
@@ -10,9 +10,10 @@ else
     read ans
     case $ans in
       [yY] | "" )
-        echo "Push:"
         git add $GIT_WORK_TREE -v
+        echo
         git commit -m "update (`date`)"
+        echo
         git push
         ;;
       [nN] )
