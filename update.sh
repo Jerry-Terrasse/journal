@@ -10,6 +10,7 @@ else
     read ans
     case $ans in
       [yY] | "" )
+        echo
         git add $GIT_WORK_TREE -v
         echo
         git commit -m "update (`date`)"
