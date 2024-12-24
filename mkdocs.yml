@@ -11,10 +11,16 @@ markdown_extensions:
   - pymdownx.arithmatex:
       generic: true
 extra_javascript:
+  # heatmap
+  - lib/heat-map/heatMap.js
+  # katex
   - lib/render_katex.js
   - https://unpkg.com/katex@0/dist/katex.min.js
   - https://unpkg.com/katex@0/dist/contrib/auto-render.min.js
 extra_css:
+  # heatmap
+  - lib/heat-map/heatMap.css
+  # katex
   - https://unpkg.com/katex@0/dist/katex.min.css
 
 nav:
