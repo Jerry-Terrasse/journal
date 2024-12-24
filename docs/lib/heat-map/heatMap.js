@@ -1,4 +1,4 @@
-/* Taken from https://github.com/ccccai/heat-map/blob/master/heatMap.js */
+/* Almost taken from https://github.com/ccccai/heat-map/blob/master/heatMap.js */
 
 /**
  * 对Date的扩展，将 Date 转化为指定格式的String
@@ -318,8 +318,8 @@ function HeatMapDate() {
       }
 
       // 设置svg元素的宽高
-      svg.style.width = section * columnCount + translateX / 2 + maxStrLength + labelPadding
-      svg.style.height = section * 7 + translateY
+      svg.style.width = section * columnCount + translateX / 2 + maxStrLength + labelPadding + 'px'
+      svg.style.height = section * 7 + translateY + 'px'
     }
 
     if (this.option.type === 'custom') {
@@ -443,8 +443,8 @@ function HeatMapDate() {
         xText.setAttribute('textLength', size < xText.getBBox().width ? size : xText.getBBox().width)
       })
       // 设置svg元素的宽高
-      svg.style.width = section * this.option.xAxis.length + translateX / 2 + labelPadding + maxStrLength
-      svg.style.height = section * this.option.yAxis.length + translateY
+      svg.style.width = section * this.option.xAxis.length + translateX / 2 + labelPadding + maxStrLength + 'px'
+      svg.style.height = section * this.option.yAxis.length + translateY + 'px'
     }
   }
 }
