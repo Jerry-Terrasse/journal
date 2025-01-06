@@ -1,1 +1,1 @@
-docs/2024.md
+docs/2025.md
