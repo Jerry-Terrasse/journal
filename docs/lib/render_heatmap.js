@@ -4,9 +4,17 @@ function getPageYear() {
         return pathMatch[1];
     }
 
-    const titleMatch = document.title.match(/^(\d{4})\b/);
+    const titleMatch = document.title.match(/\b(20\d{2})\b/);
     if (titleMatch) {
         return titleMatch[1];
+    }
+
+    const headings = document.querySelectorAll('main h1, main h2');
+    for (const heading of headings) {
+        const headingMatch = heading.textContent.match(/\b(20\d{2})\b/);
+        if (headingMatch) {
+            return headingMatch[1];
+        }
     }
 
     return null;
@@ -57,14 +65,14 @@ function getCounts(year) {
 }
 
 function renderHeatmap() {
-    const year = getPageYear();
-    if (!year) {
-        console.warn('Cannot infer page year for heatmap');
+    const container = document.getElementById('heatmap_cvs');
+    if (!container) {
         return;
     }
 
-    const container = document.getElementById('heatmap_cvs');
-    if (!container) {
+    const year = getPageYear();
+    if (!year) {
+        console.warn('Cannot infer page year for heatmap');
         return;
     }
 
