@@ -1,15 +1,29 @@
-function getCounts() {
+function getPageYear() {
+    const pathMatch = window.location.pathname.match(/\/(\d{4})\/?$/);
+    if (pathMatch) {
+        return pathMatch[1];
+    }
+
+    const titleMatch = document.title.match(/^(\d{4})\b/);
+    if (titleMatch) {
+        return titleMatch[1];
+    }
+
+    return null;
+}
+
+function getCounts(year) {
     // TOC Element
     const root = document.querySelector('ul[data-md-component="toc"]');
     if (!root) {
         console.warn('ul[data-md-component="toc"] Not Found');
-        return;
+        return {};
     }
 
     const mainUl = root.querySelector('li.md-nav__item > nav.md-nav > ul.md-nav__list');
     if (!mainUl) {
         console.warn('ul.md-nav__list Not Found');
-        return;
+        return {};
     }
 
     const dateCounts = {};
@@ -28,7 +42,7 @@ function getCounts() {
         const [, month, day] = match;
         const monthPadded = month.padStart(2, '0');
         const dayPadded = day.padStart(2, '0');
-        const dateKey = `2024-${monthPadded}-${dayPadded}`;
+        const dateKey = `${year}-${monthPadded}-${dayPadded}`;
 
         let recordCount = 0;
         const subUl = li.querySelector(':scope > nav.md-nav > ul.md-nav__list');
@@ -42,12 +56,31 @@ function getCounts() {
     return dateCounts;
 }
 
+function renderHeatmap() {
+    const year = getPageYear();
+    if (!year) {
+        console.warn('Cannot infer page year for heatmap');
+        return;
+    }
 
-window.onload = function () {
-    var dateCounts = getCounts()
-    var heatMapDate = new HeatMapDate()
+    const container = document.getElementById('heatmap_cvs');
+    if (!container) {
+        return;
+    }
+
+    const dateCounts = getCounts(year);
+    if (Object.keys(dateCounts).length === 0) {
+        return;
+    }
+
+    // Make rendering idempotent when Material triggers multiple page events.
+    container.innerHTML = '';
+
+    var heatMapDate = new HeatMapDate();
     var optionDate = {
         data: dateCounts,
+        dateStart: `${year}-01-01`,
+        dateEnd: `${year}-12-31`,
         rect: {
             stroke: {
                 show: true,
@@ -59,7 +92,18 @@ window.onload = function () {
             show: true,
             formatter: '{b} records on {a}'
         }
-    }
-    heatMapDate.setOption(optionDate)
-    heatMapDate.init(document.getElementById('heatmap_cvs'))
+    };
+    heatMapDate.setOption(optionDate);
+    heatMapDate.init(container);
+}
+
+if (typeof document$ !== 'undefined' && document$.subscribe) {
+    // Material for MkDocs uses client-side navigation, so `window.onload` is unreliable.
+    document$.subscribe(() => {
+        renderHeatmap();
+    });
+} else if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderHeatmap);
+} else {
+    renderHeatmap();
 }
